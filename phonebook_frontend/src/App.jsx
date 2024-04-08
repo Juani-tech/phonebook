@@ -92,13 +92,16 @@ const App = () => {
         name: newName,
         number: newNumber,
       };
-      personsService.create(newPerson).then((response) => {
-        setPersons(persons.concat(response));
-        setSuccessfulMessage(`Added ${newName}`);
-        setTimeout(() => {
-          setSuccessfulMessage(null);
-        }, 5000);
-      });
+      personsService
+        .create(newPerson)
+        .then((response) => {
+          setPersons(persons.concat(response));
+          setSuccessfulMessage(`Added ${newName}`);
+          setTimeout(() => {
+            setSuccessfulMessage(null);
+          }, 5000);
+        })
+        .catch((error) => setErrorMessage(error.response.data.error));
     }
     setNewName("");
     setNewNumber("");
